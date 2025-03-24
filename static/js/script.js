@@ -58,6 +58,19 @@ function updateBoard(boardState, currentPlayer) {
             } else {
                 cell.classList.remove('x', 'o');
             }
+            // サイズのクラスを設定
+            if (mark.size === 'SMALL') {
+                cell.classList.add('small');
+                cell.classList.remove('middle', 'large');
+            } else if (mark.size === 'MIDDLE') {
+                cell.classList.add('middle');
+                cell.classList.remove('small', 'large');
+            } else if (mark.size === 'LARGE') {
+                cell.classList.add('large');
+                cell.classList.remove('small', 'middle');
+            } else {
+                cell.classList.remove('small', 'middle', 'large');
+            }
         });
     });
     document.getElementById('current-player').textContent =

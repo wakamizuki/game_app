@@ -21,7 +21,7 @@ export default class GameController {
             alert('ゲームを開始してください！');
             return;
         }
-        console.log(markId);
+
         if (this.game.markSelected) {
             alert('すでにマークを選択しています！');
             return;
@@ -40,7 +40,7 @@ export default class GameController {
             alert('マークを選択してください！');
             return;
         }
-        console.log(row, col);
+
         if (this.game.cellClick(row, col, this.board)) {
             updateBoard(this.board.board, this.game.currentPlayer.getMark());
         }

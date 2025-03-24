@@ -6,8 +6,8 @@
     gap: 5px; /* セル間のスペース */
     width: 90%; /* ボードの幅を画面の90%に */
     /* height: 600px;                       ボードの高さを画面の90%に  */
-    max-width: 450px; /* 最大幅450px */
-    max-height: 450px; /* 最大高さ450px */
+    max-width: 420px; /* 最大幅450px */
+    max-height: 420px; /* 最大高さ450px */
     margin: 0 auto; /* 中央に配置 */
 }
 
@@ -17,9 +17,10 @@
     justify-content: center; /* セル内でコンテンツを中央揃え */
     align-items: center; /* セル内でコンテンツを中央揃え */
     background-color: #f0f0f0; /* セルの背景色 */
-    border: 1px solid #ccc; /* セルの境界線 */
+    border: 2px solid #636161; /* セルの境界線 */
     width: 100%; /* セルの幅を親要素（ゲームボード）の幅に合わせる */
     aspect-ratio: 1;
+    border-radius: 5%;
     /* height: 100%;               セルの高さを親要素（ゲームボード）の高さに合わせる */
 }
 
@@ -36,10 +37,70 @@
 
 /* Xマークのセルのスタイル */
 .board-cell.x {
-    background-color: lightblue;
+    background-color: rgb(168, 218, 234);
 }
 
 /* Oマークのセルのスタイル */
 .board-cell.o {
-    background-color: lightcoral;
+    background-color: rgb(232, 147, 147);
+}
+
+/* x small のスタイル */
+.board-cell.x {
+    position: relative;
+}
+
+.board-cell.x.small::after {
+    content: ''; /* 擬似要素を作るために */
+    position: absolute;
+    width: 40%;
+    height: 40%;
+    background-color: blue; /* 青色 */
+    border-radius: 10%;
+}
+.board-cell.x.middle::after {
+    content: ''; /* 擬似要素を作るために */
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    background-color: blue; /* 青色 */
+    border-radius: 10%;
+}
+.board-cell.x.large::after {
+    content: ''; /* 擬似要素を作るために */
+    position: absolute;
+    width: 95%;
+    height: 95%;
+    background-color: blue; /* 青色 */
+    border-radius: 10%;
+}
+
+/* o small のスタイル */
+.board-cell.o {
+    position: relative;
+}
+
+.board-cell.o.small::after {
+    content: ''; /* 擬似要素を作るために */
+    position: absolute;
+    width: 40%;
+    height: 40%;
+    background-color: red; /* 赤色（oの色） */
+    border-radius: 10%; /* 正方形にする */
+}
+.board-cell.o.middle::after {
+    content: ''; /* 擬似要素を作るために */
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    background-color: red; /* 赤色（oの色） */
+    border-radius: 10%; /* 正方形にする */
+}
+.board-cell.o.large::after {
+    content: ''; /* 擬似要素を作るために */
+    position: absolute;
+    width: 95%;
+    height: 95%;
+    background-color: red; /* 赤色（oの色） */
+    border-radius: 10%; /* 正方形にする */
 }
