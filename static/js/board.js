@@ -1,44 +1,101 @@
+// Board.js
+import Mark from './mark.js';
+
 class Board {
     constructor() {
+        // ボードの初期状態を空の Mark インスタンスで埋める
         this.board = [
-            ['', '', ''],
-            ['', '', ''],
-            ['', '', ''],
+            [Mark.Empty, Mark.Empty, Mark.Empty],
+            [Mark.Empty, Mark.Empty, Mark.Empty],
+            [Mark.Empty, Mark.Empty, Mark.Empty],
         ];
     }
 
+    // Mark インスタンスを受け取って、ボードの指定位置に配置
     placeMark(row, col, mark) {
-        if (this.board[row][col] === '') {
-            this.board[row][col] = mark;
-            console.log(`Mark placed at (${row}, ${col}): ${mark}`);
+        // その場所が空いている場合にマークを配置
+        console.log(
+            this.board[row][col],
+            Mark.Empty,
+            this.board[row][col].equals(Mark.Empty),
+            this.board[row][col] == Mark.Empty
+        );
+        if (this.board[row][col].equals(Mark.Empty)) {
+            this.board[row][col] = mark; // Mark インスタンスを配置
+            console.log(`Mark placed at (${row}, ${col}): ${mark.name}`);
             return true;
         }
-        return false;
+        return false; // すでに埋まっている場合は失敗
     }
 
+    // 勝者を判定
     checkWinner() {
         const winPatterns = [
-            [0, 1, 2],
-            [3, 4, 5],
-            [6, 7, 8],
-            [0, 3, 6],
-            [1, 4, 7],
-            [2, 5, 8],
-            [0, 4, 8],
-            [2, 4, 6],
+            [
+                [0, 0],
+                [0, 1],
+                [0, 2],
+            ],
+            [
+                [1, 0],
+                [1, 1],
+                [1, 2],
+            ],
+            [
+                [2, 0],
+                [2, 1],
+                [2, 2],
+            ],
+            [
+                [0, 0],
+                [1, 0],
+                [2, 0],
+            ],
+            [
+                [0, 1],
+                [1, 1],
+                [2, 1],
+            ],
+            [
+                [0, 2],
+                [1, 2],
+                [2, 2],
+            ],
+            [
+                [0, 0],
+                [1, 1],
+                [2, 2],
+            ],
+            [
+                [0, 2],
+                [1, 1],
+                [2, 0],
+            ],
         ];
-        const flatBoard = this.board.flat();
 
         for (let pattern of winPatterns) {
+            const [a, b, c] = pattern;
+            const markA = this.board[a[0]][a[1]];
+            const markB = this.board[b[0]][b[1]];
+            const markC = this.board[c[0]][c[1]];
+
+            // すべてのマークが同じプレイヤーで、空でない場合
             if (
-                flatBoard[pattern[0]] === flatBoard[pattern[1]] &&
-                flatBoard[pattern[1]] === flatBoard[pattern[2]] &&
-                flatBoard[pattern[0]] !== ''
+                !markA.equals(Mark.Empty) && // 空でない
+                markA.player === markB.player && // 同じプレイヤーか
+                markB.player === markC.player
             ) {
-                return flatBoard[pattern[0]];
+                return markA.player; // 勝者のプレイヤーを返す
             }
         }
-        return null;
+        return null; // 勝者なし
+    }
+
+    // 現在のボードを表示（デバッグ用）
+    displayBoard() {
+        this.board.forEach((row) => {
+            console.log(row.map((mark) => mark.name).join(' | '));
+        });
     }
 }
 

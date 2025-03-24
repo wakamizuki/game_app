@@ -49,10 +49,10 @@ function updateBoard(boardState, currentPlayer) {
             const cell = document.getElementById(`cell-${cellIndex}`);
             // cell.textContent = mark;  // マークを表示
             // X と O に対応するクラスを追加
-            if (mark === 'X') {
+            if (mark.player === 'X') {
                 cell.classList.add('x');
                 cell.classList.remove('o');
-            } else if (mark === 'O') {
+            } else if (mark.player === 'O') {
                 cell.classList.add('o');
                 cell.classList.remove('x');
             } else {

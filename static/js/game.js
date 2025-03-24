@@ -9,6 +9,7 @@ class Game {
         this.lastPlayer = null;
         this.gameStarted = false;
         this.markSelected = false;
+        this.currentSelectedMark = null;
         this.notification = new Notification();
     }
 
@@ -17,22 +18,25 @@ class Game {
         alert('ゲームが開始されました！');
     }
 
-    selectMark(playerMarkId, markManager) {
-        const playerMark = playerMarkId[0];
-        if (this.currentPlayer.getMark() !== playerMark) {
+    selectMark(markId, markManager) {
+        if (this.currentPlayer.getMark() !== markId[0]) {
             alert('自分のマークを選択してください！');
             return false;
         }
-        if (!markManager.selectMark(playerMarkId)) {
+        this.currentSelectedMark = markManager.MARKS.find(
+            (mark) => mark.name === markId
+        );
+        if (!markManager.selectMark(markId)) {
             return false;
         }
+
         this.markSelected = true;
-        this.notification.show(`${playerMark} を選択しました！`);
+        this.notification.show(`${markId[0]} を選択しました！`);
         return true;
     }
 
     cellClick(row, col, board) {
-        if (board.placeMark(row, col, this.currentPlayer.getMark())) {
+        if (board.placeMark(row, col, this.currentSelectedMark)) {
             const winner = board.checkWinner();
             if (winner) {
                 this.notification.show(`${winner}の勝利！`);
@@ -46,6 +50,7 @@ class Game {
                     ? this.playerO
                     : this.playerX;
             this.markSelected = false;
+            this.currentSelectedMark = null;
             return true;
         } else {
             alert('このセルはすでに埋まっています！');
