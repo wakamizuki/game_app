@@ -1,22 +1,35 @@
-const { defineConfig } = require('eslint');
+import { defineConfig } from 'eslint-define-config';
+import prettier from 'eslint-plugin-prettier';
 
-module.exports = defineConfig({
-  env: {
-    browser: true,
-    node: true,
-    es6: true,
-  },
-  parserOptions: {
-    ecmaVersion: 2020,
-    sourceType: 'module',
-  },
-  rules: {
-    'prettier/prettier': 'error', // Prettierのルールを適用
-  },
-  overrides: [
+export default defineConfig([
     {
-      files: ['*.js'], // jsファイルに適用
-      plugins: ['prettier'],
+        files: ['*.js', '*.ts'],
+        languageOptions: {
+            parserOptions: {
+                ecmaVersion: 2020,
+                sourceType: 'module',
+            },
+        },
+        plugins: {
+            prettier, // prettier プラグインをオブジェクトとして指定
+        },
+        rules: {
+            'prettier/prettier': 'error', // Prettierのルールを適用
+        },
     },
-  ],
-});
+    {
+        files: ['*.js'],
+        languageOptions: {
+            parserOptions: {
+                ecmaVersion: 2020,
+                sourceType: 'module',
+            },
+        },
+        rules: {
+            'no-console': 'warn', // eslint:recommended から置き換えたルール例
+            'no-unused-vars': 'warn',
+            eqeqeq: 'warn',
+            indent: ['error', 4], // インデントを4に設定
+        },
+    },
+]);

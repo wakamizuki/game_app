@@ -1,5 +1,6 @@
-module.exports = {
-    semi: false,  // セミコロンを使用しない
-    singleQuote: true,  // シングルクォートを使用
-    trailingComma: 'all'  // 配列の最後にカンマをつける
-}
+export default {
+    singleQuote: true,
+    trailingComma: 'es5',
+    arrowParens: 'always',
+    tabWidth: 4, // インデント幅を4に設定
+};
