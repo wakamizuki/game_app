@@ -1,12 +1,16 @@
 import Game from './game.js';
+import Board from './board.js';
+import MarkManager from './mark_manager.js';
 
 export default class GameController {
     constructor() {
         this.game = new Game();
     }
-    
+
     handleStart() {
         this.game = new Game();
+        this.board = new Board();
+        this.markManager = new MarkManager();
         this.game.startGame();
         document.getElementById("current-player").textContent = `現在のプレイヤー: ${this.game.currentPlayer.getMark()}`;
     }
@@ -21,8 +25,8 @@ export default class GameController {
             alert("すでにマークを選択しています！");
             return;
         }
-        if(this.game.selectMark(markId)){
-            updateMarkSelection(this.game.marks.availableMarks);
+        if(this.game.selectMark(markId, this.markManager)){
+            updateMarkSelection(this.markManager.MARKS);
         };
     }
 
@@ -36,8 +40,8 @@ export default class GameController {
             return;
         }
         console.log(row, col);
-        if(this.game.cellClick(row, col)){
-            updateBoard(this.game.board.board,  this.game.currentPlayer.getMark());
+        if(this.game.cellClick(row, col, this.board)){
+            updateBoard(this.board.board,  this.game.currentPlayer.getMark());
         }
     }
 
