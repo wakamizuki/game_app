@@ -9,7 +9,7 @@ class Mark {
     // マークを選択状態にする
     select() {
         if (!this.available) {
-            alert(`${this.name} はすでに選択されています！`);
+            alert(`${this.name} は使用済みです(ボード上に存在)！`);
             return false;
         }
         this.available = false;
