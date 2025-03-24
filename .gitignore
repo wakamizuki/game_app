@@ -1,0 +1,18 @@
+# 環境ファイル
+.env
+
+# Python関連
+__pycache__/
+*.pyc
+*.pyo
+
+# Node.js関連
+node_modules/
+npm-debug.log
+
+# macOS関連
+.DS_Store
+
+# その他
+*.log
+static/css/*.map

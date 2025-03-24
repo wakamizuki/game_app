@@ -1,0 +1,34 @@
+.mark-selection {
+    margin-top: 10px;
+}
+
+.mark-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px; /* 各行の間にスペースを追加 */
+}
+
+.mark-cell {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    background-color: #f0f0f0;
+    margin: 5px;
+    text-align: center;
+    line-height: 60px;
+    cursor: pointer;
+}
+
+.mark-cell:hover {
+    background-color: #e0e0e0;
+}
+/* Oのセルが選択されたとき */
+.mark-cell[data-mark="O"].selected {
+    background-color: red;  /* 赤色 */
+    color: white;  /* 白文字 */
+}
+/* Xのセルが選択されたとき */
+.mark-cell[data-mark="X"].selected {
+    background-color: #007bff;  /* 青色 */
+    color: white;  /* 白文字 */
+}
