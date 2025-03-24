@@ -1,25 +1,24 @@
-
 /* ゲームボードのスタイル */
 #game-board {
     display: grid;
-    grid-template-rows: repeat(3, 1fr);  /* 縦3行に均等に分ける */
+    grid-template-rows: repeat(3, 1fr); /* 縦3行に均等に分ける */
     grid-template-columns: repeat(3, 1fr); /* 横3列に均等に分ける */
-    gap: 5px;                             /* セル間のスペース */
-    width: 90%;                          /* ボードの幅を画面の90%に */
+    gap: 5px; /* セル間のスペース */
+    width: 90%; /* ボードの幅を画面の90%に */
     /* height: 600px;                       ボードの高さを画面の90%に  */
-    max-width: 450px;                     /* 最大幅450px */
-    max-height: 450px;                    /* 最大高さ450px */
-    margin: 0 auto;                       /* 中央に配置 */
+    max-width: 450px; /* 最大幅450px */
+    max-height: 450px; /* 最大高さ450px */
+    margin: 0 auto; /* 中央に配置 */
 }
 
 /* 各セルのスタイル */
 .board-cell {
     display: flex;
-    justify-content: center;   /* セル内でコンテンツを中央揃え */
-    align-items: center;       /* セル内でコンテンツを中央揃え */
+    justify-content: center; /* セル内でコンテンツを中央揃え */
+    align-items: center; /* セル内でコンテンツを中央揃え */
     background-color: #f0f0f0; /* セルの背景色 */
-    border: 1px solid #ccc;    /* セルの境界線 */
-    width: 100%;                /* セルの幅を親要素（ゲームボード）の幅に合わせる */
+    border: 1px solid #ccc; /* セルの境界線 */
+    width: 100%; /* セルの幅を親要素（ゲームボード）の幅に合わせる */
     aspect-ratio: 1;
     /* height: 100%;               セルの高さを親要素（ゲームボード）の高さに合わせる */
 }

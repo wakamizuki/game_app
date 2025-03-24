@@ -23,12 +23,12 @@
     background-color: #e0e0e0;
 }
 /* Oのセルが選択されたとき */
-.mark-cell[data-mark="O"].selected {
-    background-color: red;  /* 赤色 */
-    color: white;  /* 白文字 */
+.mark-cell[data-mark='O'].selected {
+    background-color: red; /* 赤色 */
+    color: white; /* 白文字 */
 }
 /* Xのセルが選択されたとき */
-.mark-cell[data-mark="X"].selected {
-    background-color: #007bff;  /* 青色 */
-    color: white;  /* 白文字 */
+.mark-cell[data-mark='X'].selected {
+    background-color: #007bff; /* 青色 */
+    color: white; /* 白文字 */
 }

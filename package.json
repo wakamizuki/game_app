@@ -1,0 +1,29 @@
+{
+    "name": "game_app",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "lint": "eslint ."
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/wakamizuki/game_app.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/wakamizuki/game_app/issues"
+    },
+    "homepage": "https://github.com/wakamizuki/game_app#readme",
+    "description": "",
+    "devDependencies": {
+        "eslint": "^9.23.0",
+        "eslint-config-prettier": "^10.1.1",
+        "eslint-define-config": "^2.1.0",
+        "eslint-plugin-prettier": "^5.2.4",
+        "prettier": "^3.5.3"
+    },
+    "type": "module"
+}

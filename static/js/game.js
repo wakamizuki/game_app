@@ -1,11 +1,8 @@
 import Player from './player.js';
-import Board from './board.js';
-import Mark from './mark.js';
 import Notification from './notification.js';
+
 class Game {
     constructor() {
-        this.board = new Board();
-        this.marks = new Mark();
         this.playerX = new Player('X');
         this.playerO = new Player('O');
         this.currentPlayer = this.playerO;
@@ -17,16 +14,16 @@ class Game {
 
     startGame() {
         this.gameStarted = true;
-        alert("ゲームが開始されました！");
+        alert('ゲームが開始されました！');
     }
 
-    selectMark(playerMarkId) {
+    selectMark(playerMarkId, markManager) {
         const playerMark = playerMarkId[0];
         if (this.currentPlayer.getMark() !== playerMark) {
-            alert("自分のマークを選択してください！");
+            alert('自分のマークを選択してください！');
             return false;
         }
-        if(!this.marks.selectMark(playerMarkId)) {
+        if (!markManager.selectMark(playerMarkId)) {
             return false;
         }
         this.markSelected = true;
@@ -34,21 +31,25 @@ class Game {
         return true;
     }
 
-    cellClick(row, col) {
-        if (this.board.placeMark(row, col, this.currentPlayer.getMark())) {
-            const winner = this.board.checkWinner();
+    cellClick(row, col, board) {
+        if (board.placeMark(row, col, this.currentPlayer.getMark())) {
+            const winner = board.checkWinner();
             if (winner) {
                 this.notification.show(`${winner}の勝利！`);
+                alert(`${winner}の勝利！`);
                 this.gameStarted = false;
             }
 
             this.lastPlayer = this.currentPlayer;
-            this.currentPlayer = this.currentPlayer === this.playerX ? this.playerO : this.playerX;
+            this.currentPlayer =
+                this.currentPlayer === this.playerX
+                    ? this.playerO
+                    : this.playerX;
             this.markSelected = false;
-            return true
+            return true;
         } else {
-            alert("このセルはすでに埋まっています！");
-            return ;
+            alert('このセルはすでに埋まっています！');
+            return;
         }
     }
 }
