@@ -23,6 +23,8 @@ jobs:
       - name: Install dependencies
         run: |
           npm install  # 依存関係をインストール
+          npm install eslint-config-prettier --save-dev  # eslint-config-prettierをインストール
+
 
       - name: Run ESLint
         run: |
