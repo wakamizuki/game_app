@@ -14,16 +14,16 @@ class Game {
 
     startGame() {
         this.gameStarted = true;
-        alert("ゲームが開始されました！");
+        alert('ゲームが開始されました！');
     }
 
     selectMark(playerMarkId, markManager) {
         const playerMark = playerMarkId[0];
         if (this.currentPlayer.getMark() !== playerMark) {
-            alert("自分のマークを選択してください！");
+            alert('自分のマークを選択してください！');
             return false;
         }
-        if(!markManager.selectMark(playerMarkId)) {
+        if (!markManager.selectMark(playerMarkId)) {
             return false;
         }
         this.markSelected = true;
@@ -41,12 +41,15 @@ class Game {
             }
 
             this.lastPlayer = this.currentPlayer;
-            this.currentPlayer = this.currentPlayer === this.playerX ? this.playerO : this.playerX;
+            this.currentPlayer =
+                this.currentPlayer === this.playerX
+                    ? this.playerO
+                    : this.playerX;
             this.markSelected = false;
-            return true
+            return true;
         } else {
-            alert("このセルはすでに埋まっています！");
-            return ;
+            alert('このセルはすでに埋まっています！');
+            return;
         }
     }
 }

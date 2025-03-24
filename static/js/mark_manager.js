@@ -24,7 +24,7 @@ class MarkManager {
             throw new Error(`マーク ${name} は存在しません！`);
         }
 
-        if(!mark.select()){
+        if (!mark.select()) {
             return false;
         }
 
@@ -33,7 +33,9 @@ class MarkManager {
 
     // 指定プレイヤーの利用可能なマークを取得する
     getAvailableMarks(player) {
-        return this.MARKS.filter((mark) => mark.player === player && mark.isAvailable());
+        return this.MARKS.filter(
+            (mark) => mark.player === player && mark.isAvailable()
+        );
     }
 
     // 全ての選択済みマークを取得する

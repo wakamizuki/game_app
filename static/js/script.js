@@ -4,18 +4,17 @@ const gameController = new GameController();
 const BOARD_SIZE = 3;
 
 // ゲーム開始ボタン
-document.getElementById("start-game-btn").addEventListener("click", () => {
+document.getElementById('start-game-btn').addEventListener('click', () => {
     gameController.handleStart();
     resetBoardUI();
     resetMarkSelectionUI();
-
 });
 
 // マーク選択イベント
-document.querySelectorAll('.mark-cell').forEach(cell => {
+document.querySelectorAll('.mark-cell').forEach((cell) => {
     cell.addEventListener('click', (e) => {
         const markId = e.target.id.split('-')[1];
-        gameController.handleMarkSelection(markId, updateMarkSelection ); 
+        gameController.handleMarkSelection(markId, updateMarkSelection);
     });
 });
 
@@ -28,10 +27,9 @@ document.querySelectorAll('.board-cell').forEach((cell, index) => {
     });
 });
 
-
 // マークUIの更新
 function updateMarkSelection(MARKS) {
-    MARKS.forEach(mark => {
+    MARKS.forEach((mark) => {
         const cell = document.getElementById(`mark-${mark.name}`);
         if (mark.isAvailable()) {
             cell.classList.remove('selected');
@@ -39,7 +37,6 @@ function updateMarkSelection(MARKS) {
             cell.classList.add('selected');
         }
     });
-
 }
 
 // ボードUIの更新
@@ -63,21 +60,21 @@ function updateBoard(boardState, currentPlayer) {
             }
         });
     });
-    document.getElementById("current-player").textContent = `現在のプレイヤー: ${currentPlayer}`;
+    document.getElementById('current-player').textContent =
+        `現在のプレイヤー: ${currentPlayer}`;
 }
-
 
 // ボードをリセット
 function resetBoardUI() {
-    document.querySelectorAll('.board-cell').forEach(cell => {
-        cell.textContent = '';  // セルをクリア
+    document.querySelectorAll('.board-cell').forEach((cell) => {
+        cell.textContent = ''; // セルをクリア
         cell.classList.remove('x', 'o');
     });
 }
 
 //　マークのリセット
 function resetMarkSelectionUI() {
-    document.querySelectorAll('.mark-cell').forEach(cell => {
+    document.querySelectorAll('.mark-cell').forEach((cell) => {
         cell.classList.remove('selected');
         cell.removeAttribute('disabled');
     });
