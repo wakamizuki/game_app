@@ -1,19 +1,22 @@
-module.exports = {
-    extends: [
-      'eslint:recommended', // 推奨設定を使用
-      'plugin:prettier/recommended', // Prettier の設定を統合
-    ],
-    env: {
-      browser: true,
-      node: true,
-      es2021: true,
+const { defineConfig } = require('eslint');
+
+module.exports = defineConfig({
+  env: {
+    browser: true,
+    node: true,
+    es6: true,
+  },
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: 'module',
+  },
+  rules: {
+    'prettier/prettier': 'error', // Prettierのルールを適用
+  },
+  overrides: [
+    {
+      files: ['*.js'], // jsファイルに適用
+      plugins: ['prettier'],
     },
-    parserOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-    },
-    rules: {
-      // 独自のルールを追加する場合
-      'no-console': 'warn', // console.logを警告に
-    },
-  };
+  ],
+});
