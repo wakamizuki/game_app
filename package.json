@@ -23,7 +23,8 @@
         "eslint-config-prettier": "^10.1.1",
         "eslint-define-config": "^2.1.0",
         "eslint-plugin-prettier": "^5.2.4",
-        "prettier": "^3.5.3"
+        "prettier": "^3.5.3",
+        "sass": "^1.86.0"
     },
     "type": "module"
 }
