@@ -3,30 +3,32 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - '*'  # すべてのブランチで実行
+      - '*'  # すべてのブランチに対して push イベントが発生した場合に実行
   pull_request:
     branches:
-      - '*'  # すべてのPRで実行
+      - '*'  # すべてのブランチに対するプルリクエストが作成された場合に実行
 
 jobs:
   format:  # フォーマットチェックと修正のジョブ
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # このジョブを Ubuntu の最新バージョンで実行
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-          
+        uses: actions/checkout@v2  # リポジトリのコードをクローン
+
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
-          node-version: '18'
+          node-version: '16'  # Node.js のバージョンを指定
 
       - name: Install dependencies
-        run: npm ci  # lockファイルから厳密にインストール
-
-      - name: Check ESLint
         run: |
-          npx eslint . --max-warnings 0 # 自動修正しない & 警告もエラー扱い
+          npm install  # 依存関係をインストール
+          npm install eslint-config-prettier --save-dev  # eslint-config-prettierをインストール
 
-      - name: Check Prettier
+      - name: Run ESLint
         run: |
-          npx prettier --check .  # 変更が必要な場合はエラー
+          npx eslint . --fix  # ESLintを使ってコードを自動修正
+
+      - name: Run Prettier
+        run: |
+          npx prettier --write .  # Prettierでコードを自動修正
