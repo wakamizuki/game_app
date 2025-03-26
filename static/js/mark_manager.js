@@ -19,14 +19,14 @@ class MarkManager {
         this._currentSelectedMark = null;
     }
 
-    isMarkSelected() {
+    _isMarkSelected() {
         return this._markSelected;
     }
 
     selectMark(name, currentPlayer) {
         const mark = this._getMarkByName(name);
 
-        if (this.isMarkSelected()) {
+        if (this._isMarkSelected()) {
             throw new Error('マークはすでに選択されています！');
         }
         if (mark.player !== currentPlayer.getMark()) {
@@ -52,7 +52,7 @@ class MarkManager {
     }
 
     getCurrentSelectedMark() {
-        if (!this.isMarkSelected()) {
+        if (!this._isMarkSelected()) {
             throw new Error('マークが選択されていません！');
         }
         return this._currentSelectedMark;
