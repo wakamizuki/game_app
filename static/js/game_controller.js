@@ -1,6 +1,7 @@
 import Game from './game.js';
 import Board from './board.js';
 import MarkManager from './mark_manager.js';
+import Notification from './notification.js';
 
 export default class GameController {
     constructor() {
@@ -9,40 +10,61 @@ export default class GameController {
 
     handleStart() {
         this.game = new Game();
-        this.board = new Board();
+        this.boards = new Board();
         this.markManager = new MarkManager();
+        this.notification = new Notification();
         this.game.startGame();
         document.getElementById('current-player').textContent =
-            `現在のプレイヤー: ${this.game.currentPlayer.getMark()}`;
+            `現在のプレイヤー: ${this.game._currentPlayer.getMark()}`;
     }
 
-    handleMarkSelection(markId, updateMarkSelection) {
-        if (!this.game.gameStarted) {
+    handleMarkSelection(markId, updateMarkSelectionUI) {
+        if (!this.game.isGameStarted()) {
             alert('ゲームを開始してください！');
             return;
         }
-
-        if (this.game.markSelected) {
-            alert('すでにマークを選択しています！');
+        try {
+            const currentPlayer = this.game.getCurrentPlayer();
+            this.markManager.selectMark(markId, currentPlayer);
+            updateMarkSelectionUI(this.markManager.getMARKS());
+        } catch (e) {
+            alert(e.message);
             return;
-        }
-        if (this.game.selectMark(markId, this.markManager)) {
-            updateMarkSelection(this.markManager.MARKS);
         }
     }
 
-    handleCellClick(row, col, updateBoard) {
-        if (!this.game.gameStarted) {
+    handleCellClick(row, col, updateBoardUI) {
+        if (!this.game.isGameStarted()) {
             alert('ゲームを開始してください！');
             return;
         }
-        if (!this.game.markSelected) {
-            alert('マークを選択してください！');
+        try {
+            const currentSelectedMark =
+                this.markManager.getCurrentSelectedMark();
+            this.boards.placeMarkOnBoard(row, col, currentSelectedMark);
+            this.markManager.resetMark();
+            updateBoardUI(
+                this.boards.boardUpper,
+                this.game.getCurrentPlayer().getMark()
+            );
+            this._checkAndHandleGameEnd();
+        } catch (e) {
+            alert(e.message);
             return;
         }
+    }
 
-        if (this.game.cellClick(row, col, this.board)) {
-            updateBoard(this.board.board, this.game.currentPlayer.getMark());
+    // ゲーム終了の確認と処理
+    _checkAndHandleGameEnd() {
+        const winner = this.boards.checkWinner();
+        if (winner) {
+            this.notification.show(`${winner}の勝利！`);
+            alert(`${winner}の勝利！`);
+            this.game.endGame(); // ゲームを終了
+        } else {
+            this.game.switchPlayer();
+            document.getElementById('current-player').textContent =
+                `現在のプレイヤー: ${this.game.getCurrentPlayer().getMark()}`;
         }
     }
 }

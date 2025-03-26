@@ -6,19 +6,17 @@ class Mark {
         this.available = true; // 利用可能かどうか
     }
 
-    // マークを選択状態にする
-    select() {
-        if (!this.available) {
-            alert(`${this.name} は使用済みです(ボード上に存在)！`);
-            return false;
-        }
-        this.available = false;
-        return true;
+    _canSelect() {
+        return this.available;
     }
 
-    // 利用可能かどうかを返す
-    isAvailable() {
-        return this.available;
+    // マークを選択状態にする
+    select() {
+        if (!this._canSelect()) {
+            throw new Error('このマークは選択できません！');
+        }
+        this.available = false;
+        return this;
     }
 
     equals(other) {
