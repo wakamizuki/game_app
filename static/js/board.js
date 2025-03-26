@@ -8,8 +8,7 @@ class Board {
             [Mark.Empty, Mark.Empty, Mark.Empty],
             [Mark.Empty, Mark.Empty, Mark.Empty],
             [Mark.Empty, Mark.Empty, Mark.Empty],
-        ]
-        ;
+        ];
         this.boardCenter = [
             [Mark.Empty, Mark.Empty, Mark.Empty],
             [Mark.Empty, Mark.Empty, Mark.Empty],
@@ -21,7 +20,7 @@ class Board {
             [Mark.Empty, Mark.Empty, Mark.Empty],
         ];
     }
-    
+
     _canPlaceMark(row, col) {
         return this.boardUpper[row][col].equals(Mark.Empty);
     }
@@ -35,10 +34,10 @@ class Board {
             this.boardUpper[row][col].equals(Mark.Empty),
             this.boardUpper[row][col] == Mark.Empty
         );
-        if(!(this._canPlaceMark(row, col))){
+        if (!this._canPlaceMark(row, col)) {
             throw new Error('そのセルはすでに埋まっています！');
         }
-        
+
         this.boardUpper[row][col] = mark; // Mark インスタンスを配置
         console.log(`Mark placed at (${row}, ${col}): ${mark.name}`);
         return this;

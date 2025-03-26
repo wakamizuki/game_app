@@ -3,12 +3,11 @@ import Board from './board.js';
 import MarkManager from './mark_manager.js';
 import Notification from './notification.js';
 
-
 export default class GameController {
     constructor() {
         this.game = new Game();
     }
-    
+
     handleStart() {
         this.game = new Game();
         this.boards = new Board();
@@ -20,15 +19,15 @@ export default class GameController {
     }
 
     handleMarkSelection(markId, updateMarkSelectionUI) {
-        if(!(this.game.isGameStarted())){
+        if (!this.game.isGameStarted()) {
             alert('ゲームを開始してください！');
             return;
         }
-        try{
+        try {
             const currentPlayer = this.game.getCurrentPlayer();
             this.markManager.selectMark(markId, currentPlayer);
             updateMarkSelectionUI(this.markManager.getMARKS());
-        }catch(e){
+        } catch (e) {
             alert(e.message);
             return;
         }
@@ -39,16 +38,20 @@ export default class GameController {
             alert('ゲームを開始してください！');
             return;
         }
-        try{
-            const currentSelectedMark = this.markManager.getCurrentSelectedMark();
+        try {
+            const currentSelectedMark =
+                this.markManager.getCurrentSelectedMark();
             this.boards.placeMarkOnBoard(row, col, currentSelectedMark);
             this.markManager.resetMark();
-            updateBoardUI(this.boards.boardUpper, this.game.getCurrentPlayer().getMark());
+            updateBoardUI(
+                this.boards.boardUpper,
+                this.game.getCurrentPlayer().getMark()
+            );
             this._checkAndHandleGameEnd();
-        }catch(e){
+        } catch (e) {
             alert(e.message);
             return;
-        };
+        }
     }
 
     // ゲーム終了の確認と処理
@@ -58,11 +61,10 @@ export default class GameController {
             this.notification.show(`${winner}の勝利！`);
             alert(`${winner}の勝利！`);
             this.game.endGame(); // ゲームを終了
-        } else{
+        } else {
             this.game.switchPlayer();
             document.getElementById('current-player').textContent =
                 `現在のプレイヤー: ${this.game.getCurrentPlayer().getMark()}`;
         }
     }
-
 }

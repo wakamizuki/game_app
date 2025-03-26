@@ -19,45 +19,45 @@ class MarkManager {
         this._currentSelectedMark = null;
     }
 
-    isMarkSelected(){
+    isMarkSelected() {
         return this._markSelected;
     }
 
     selectMark(name, currentPlayer) {
         const mark = this._getMarkByName(name);
 
-        if(this.isMarkSelected()){
+        if (this.isMarkSelected()) {
             throw new Error('マークはすでに選択されています！');
         }
-        if(mark.player !== currentPlayer.getMark()){
+        if (mark.player !== currentPlayer.getMark()) {
             throw new Error('自分のマークを選択してください！');
         }
 
-        try{
+        try {
             const selectedMark = mark.select();
             this._setCurrentSelectedMark(selectedMark);
             this._selectMark();
-        }catch(error){
+        } catch (error) {
             throw new Error(error);
         }
     }
 
-    resetMark(){
+    resetMark() {
         this._unselectMark();
         this._resetCurrentSelectedMark();
     }
-    
-    getMARKS(){
+
+    getMARKS() {
         return this._MARKS;
     }
 
-    getCurrentSelectedMark(){
-        if(!this.isMarkSelected()){
+    getCurrentSelectedMark() {
+        if (!this.isMarkSelected()) {
             throw new Error('マークが選択されていません！');
         }
         return this._currentSelectedMark;
     }
-    
+
     _getMarkByName(name) {
         const mark = this._MARKS.find((m) => m.name === name);
         if (!mark) {
@@ -65,22 +65,21 @@ class MarkManager {
         }
         return mark;
     }
-    _selectMark(){
+    _selectMark() {
         this._markSelected = true;
     }
 
-    _setCurrentSelectedMark(mark){
+    _setCurrentSelectedMark(mark) {
         this._currentSelectedMark = mark;
     }
 
-    _unselectMark(){
+    _unselectMark() {
         this._markSelected = false;
     }
 
-    _resetCurrentSelectedMark(){
+    _resetCurrentSelectedMark() {
         this._currentSelectedMark = null;
     }
-
 }
 
 export default MarkManager;
