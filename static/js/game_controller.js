@@ -15,7 +15,7 @@ export default class GameController {
         this.notification = new Notification();
         this.game.startGame();
         document.getElementById('current-player').textContent =
-            `現在のプレイヤー: ${this.game._currentPlayer.getMark()}`;
+            `現在のプレイヤー: ${this.game.getCurrentPlayer().getMark()}`;
     }
 
     handleMarkSelection(markId, updateMarkSelectionUI) {
@@ -33,7 +33,7 @@ export default class GameController {
         }
     }
 
-    handleCellClick(row, col, updateBoardUI) {
+    async handleCellClick(row, col, updateBoardUI) {
         if (!this.game.isGameStarted()) {
             alert('ゲームを開始してください！');
             return;
@@ -43,10 +43,11 @@ export default class GameController {
                 this.markManager.getCurrentSelectedMark();
             this.boards.placeMarkOnBoard(row, col, currentSelectedMark);
             this.markManager.resetMark();
-            updateBoardUI(
+            await updateBoardUI(
                 this.boards.boardUpper,
                 this.game.getCurrentPlayer().getMark()
             );
+
             this._checkAndHandleGameEnd();
         } catch (e) {
             alert(e.message);
