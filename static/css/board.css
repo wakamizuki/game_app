@@ -20,7 +20,7 @@
     border: 2px solid #636161; /* セルの境界線 */
     width: 100%; /* セルの幅を親要素（ゲームボード）の幅に合わせる */
     aspect-ratio: 1;
-    border-radius: 5%;
+    border-radius: 1%;
     /* height: 100%;               セルの高さを親要素（ゲームボード）の高さに合わせる */
 }
 
@@ -57,6 +57,7 @@
     height: 40%;
     background-color: blue; /* 青色 */
     border-radius: 10%;
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
 }
 .board-cell.x.middle::after {
     content: ''; /* 擬似要素を作るために */
@@ -65,6 +66,7 @@
     height: 60%;
     background-color: blue; /* 青色 */
     border-radius: 10%;
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
 }
 .board-cell.x.large::after {
     content: ''; /* 擬似要素を作るために */
@@ -73,6 +75,7 @@
     height: 95%;
     background-color: blue; /* 青色 */
     border-radius: 10%;
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
 /* o small のスタイル */
@@ -87,6 +90,7 @@
     height: 40%;
     background-color: red; /* 赤色（oの色） */
     border-radius: 10%; /* 正方形にする */
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
 }
 .board-cell.o.middle::after {
     content: ''; /* 擬似要素を作るために */
@@ -95,6 +99,7 @@
     height: 60%;
     background-color: red; /* 赤色（oの色） */
     border-radius: 10%; /* 正方形にする */
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
 }
 .board-cell.o.large::after {
     content: ''; /* 擬似要素を作るために */
@@ -103,4 +108,5 @@
     height: 95%;
     background-color: red; /* 赤色（oの色） */
     border-radius: 10%; /* 正方形にする */
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
 }

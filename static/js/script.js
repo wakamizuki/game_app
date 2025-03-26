@@ -14,7 +14,7 @@ document.getElementById('start-game-btn').addEventListener('click', () => {
 document.querySelectorAll('.mark-cell').forEach((cell) => {
     cell.addEventListener('click', (e) => {
         const markId = e.target.id.split('-')[1];
-        gameController.handleMarkSelection(markId, updateMarkSelection);
+        gameController.handleMarkSelection(markId, updateMarkSelectionUI);
     });
 });
 
@@ -23,15 +23,15 @@ document.querySelectorAll('.board-cell').forEach((cell, index) => {
     cell.addEventListener('click', () => {
         const row = Math.floor(index / BOARD_SIZE);
         const col = index % BOARD_SIZE;
-        gameController.handleCellClick(row, col, updateBoard);
+        gameController.handleCellClick(row, col, updateBoardUI);
     });
 });
 
 // マークUIの更新
-function updateMarkSelection(MARKS) {
+function updateMarkSelectionUI(MARKS) {
     MARKS.forEach((mark) => {
         const cell = document.getElementById(`mark-${mark.name}`);
-        if (mark.isAvailable()) {
+        if (mark._canSelect()) {
             cell.classList.remove('selected');
         } else {
             cell.classList.add('selected');
@@ -40,7 +40,7 @@ function updateMarkSelection(MARKS) {
 }
 
 // ボードUIの更新
-function updateBoard(boardState, currentPlayer) {
+function updateBoardUI(boardState, currentPlayer) {
     console.log(boardState);
     boardState.forEach((row, rowIndex) => {
         row.forEach((mark, colIndex) => {

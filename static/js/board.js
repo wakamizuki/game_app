@@ -4,28 +4,44 @@ import Mark from './mark.js';
 class Board {
     constructor() {
         // ボードの初期状態を空の Mark インスタンスで埋める
-        this.board = [
+        this.boardUpper = [
+            [Mark.Empty, Mark.Empty, Mark.Empty],
+            [Mark.Empty, Mark.Empty, Mark.Empty],
+            [Mark.Empty, Mark.Empty, Mark.Empty],
+        ]
+        ;
+        this.boardCenter = [
+            [Mark.Empty, Mark.Empty, Mark.Empty],
+            [Mark.Empty, Mark.Empty, Mark.Empty],
+            [Mark.Empty, Mark.Empty, Mark.Empty],
+        ];
+        this.boardLower = [
             [Mark.Empty, Mark.Empty, Mark.Empty],
             [Mark.Empty, Mark.Empty, Mark.Empty],
             [Mark.Empty, Mark.Empty, Mark.Empty],
         ];
     }
+    
+    _canPlaceMark(row, col) {
+        return this.boardUpper[row][col].equals(Mark.Empty);
+    }
 
     // Mark インスタンスを受け取って、ボードの指定位置に配置
-    placeMark(row, col, mark) {
+    placeMarkOnBoard(row, col, mark) {
         // その場所が空いている場合にマークを配置
         console.log(
-            this.board[row][col],
+            this.boardUpper[row][col],
             Mark.Empty,
-            this.board[row][col].equals(Mark.Empty),
-            this.board[row][col] == Mark.Empty
+            this.boardUpper[row][col].equals(Mark.Empty),
+            this.boardUpper[row][col] == Mark.Empty
         );
-        if (this.board[row][col].equals(Mark.Empty)) {
-            this.board[row][col] = mark; // Mark インスタンスを配置
-            console.log(`Mark placed at (${row}, ${col}): ${mark.name}`);
-            return true;
+        if(!(this._canPlaceMark(row, col))){
+            throw new Error('そのセルはすでに埋まっています！');
         }
-        return false; // すでに埋まっている場合は失敗
+        
+        this.boardUpper[row][col] = mark; // Mark インスタンスを配置
+        console.log(`Mark placed at (${row}, ${col}): ${mark.name}`);
+        return this;
     }
 
     // 勝者を判定
@@ -75,9 +91,9 @@ class Board {
 
         for (let pattern of winPatterns) {
             const [a, b, c] = pattern;
-            const markA = this.board[a[0]][a[1]];
-            const markB = this.board[b[0]][b[1]];
-            const markC = this.board[c[0]][c[1]];
+            const markA = this.boardUpper[a[0]][a[1]];
+            const markB = this.boardUpper[b[0]][b[1]];
+            const markC = this.boardUpper[c[0]][c[1]];
 
             // すべてのマークが同じプレイヤーで、空でない場合
             if (
@@ -92,11 +108,11 @@ class Board {
     }
 
     // 現在のボードを表示（デバッグ用）
-    displayBoard() {
-        this.board.forEach((row) => {
-            console.log(row.map((mark) => mark.name).join(' | '));
-        });
-    }
+    // displayBoard() {
+    //     this.board.forEach((row) => {
+    //         console.log(row.map((mark) => mark.name).join(' | '));
+    //     });
+    // }
 }
 
 export default Board;

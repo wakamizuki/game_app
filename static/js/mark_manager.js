@@ -1,7 +1,7 @@
 import Mark from './mark.js';
 class MarkManager {
     constructor() {
-        this.MARKS = [
+        this._MARKS = [
             new Mark('X1', 'X', 'SMALL'),
             new Mark('X2', 'X', 'SMALL'),
             new Mark('X3', 'X', 'MIDDLE'),
@@ -15,38 +15,72 @@ class MarkManager {
             new Mark('O5', 'O', 'LARGE'),
             new Mark('O6', 'O', 'LARGE'),
         ];
+        this._markSelected = false;
+        this._currentSelectedMark = null;
     }
 
-    // マークを選択する
-    selectMark(name) {
-        const mark = this.MARKS.find((m) => m.name === name);
+    isMarkSelected(){
+        return this._markSelected;
+    }
+
+    selectMark(name, currentPlayer) {
+        const mark = this._getMarkByName(name);
+
+        if(this.isMarkSelected()){
+            throw new Error('マークはすでに選択されています！');
+        }
+        if(mark.player !== currentPlayer.getMark()){
+            throw new Error('自分のマークを選択してください！');
+        }
+
+        try{
+            const selectedMark = mark.select();
+            this._setCurrentSelectedMark(selectedMark);
+            this._selectMark();
+        }catch(error){
+            throw new Error(error);
+        }
+    }
+
+    resetMark(){
+        this._unselectMark();
+        this._resetCurrentSelectedMark();
+    }
+    
+    getMARKS(){
+        return this._MARKS;
+    }
+
+    getCurrentSelectedMark(){
+        if(!this.isMarkSelected()){
+            throw new Error('マークが選択されていません！');
+        }
+        return this._currentSelectedMark;
+    }
+    
+    _getMarkByName(name) {
+        const mark = this._MARKS.find((m) => m.name === name);
         if (!mark) {
             throw new Error(`マーク ${name} は存在しません！`);
         }
-
-        if (!mark.select()) {
-            return false;
-        }
-
-        return true;
+        return mark;
+    }
+    _selectMark(){
+        this._markSelected = true;
     }
 
-    // 指定プレイヤーの利用可能なマークを取得する
-    getAvailableMarks(player) {
-        return this.MARKS.filter(
-            (mark) => mark.player === player && mark.isAvailable()
-        );
+    _setCurrentSelectedMark(mark){
+        this._currentSelectedMark = mark;
     }
 
-    // 全ての選択済みマークを取得する
-    getSelectedMarks() {
-        return this.MARKS.filter((mark) => !mark.isAvailable());
+    _unselectMark(){
+        this._markSelected = false;
     }
 
-    // 全てのマークが選択済みかを確認
-    areAllMarksSelected() {
-        return this.MARKS.every((mark) => !mark.isAvailable());
+    _resetCurrentSelectedMark(){
+        this._currentSelectedMark = null;
     }
+
 }
 
 export default MarkManager;
