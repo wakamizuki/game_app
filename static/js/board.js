@@ -105,13 +105,6 @@ class Board {
         }
         return null; // 勝者なし
     }
-
-    // 現在のボードを表示（デバッグ用）
-    // displayBoard() {
-    //     this.board.forEach((row) => {
-    //         console.log(row.map((mark) => mark.name).join(' | '));
-    //     });
-    // }
 }
 
 export default Board;
