@@ -9,12 +9,28 @@ describe('Board Class', () => {
         expect(board.boardUpper[0][0]).toEqual(mark);
     });
 
-    test('すでにマークが配置されているセルにはマークを配置できない', () => {
+    test('すでにマークが配置されているセルには、同等以下の大きさのマークを配置できない', () => {
         const board = new Board();
         const mark1 = new Mark('X1', 'X', 'SMALL');
         const mark2 = new Mark('O1', 'O', 'SMALL');
         board.placeMarkOnBoard(0, 0, mark1);
-        expect(() => board.placeMarkOnBoard(0, 0, mark2)).toThrowError(Error);
+        expect(() => board.placeMarkOnBoard(0, 0, mark2)).toThrowError();
+    });
+
+    test('相手のマークが配置されているセルでも、大きいマークなら配置できる', () => {
+        const board = new Board();
+        const mark1 = new Mark('X1', 'X', 'SMALL');
+        const mark2 = new Mark('O3', 'O', 'MIDDLE');
+        board.placeMarkOnBoard(0, 0, mark1);
+        expect(() => board.placeMarkOnBoard(0, 0, mark2)).not.toThrowError();
+    });
+
+    test('自分のマークが配置されているセルでも、大きいマークなら配置できる', () => {
+        const board = new Board();
+        const mark1 = new Mark('X1', 'X', 'SMALL');
+        const mark2 = new Mark('X3', 'X', 'MIDDLE');
+        board.placeMarkOnBoard(0, 0, mark1);
+        expect(() => board.placeMarkOnBoard(0, 0, mark2)).not.toThrowError();
     });
 
     test('勝者がいない場合は null を返す', () => {
@@ -74,7 +90,6 @@ describe('Board Class', () => {
         const mark = new Mark('X1', 'X', 'SMALL');
         const mark2 = new Mark('X2', 'X', 'SMALL');
         board.placeMarkOnBoard(0, 0, mark);
-        board.placeMarkOnBoard(0, 1, Mark.Empty);
         board.placeMarkOnBoard(0, 2, mark2);
         expect(board.checkWinner()).toBeNull();
     });

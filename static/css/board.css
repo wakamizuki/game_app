@@ -55,7 +55,7 @@
     position: absolute;
     width: 40%;
     height: 40%;
-    background-color: blue; /* 青色 */
+    background-color: rgb(12, 12, 178); /* 青色 */
     border-radius: 10%;
     box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
 }
@@ -64,7 +64,7 @@
     position: absolute;
     width: 60%;
     height: 60%;
-    background-color: blue; /* 青色 */
+    background-color: rgb(12, 12, 178); /* 青色 */
     border-radius: 10%;
     box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
 }
@@ -73,7 +73,7 @@
     position: absolute;
     width: 95%;
     height: 95%;
-    background-color: blue; /* 青色 */
+    background-color: rgb(12, 12, 178); /* 青色 */
     border-radius: 10%;
     box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
 }
@@ -88,7 +88,7 @@
     position: absolute;
     width: 40%;
     height: 40%;
-    background-color: red; /* 赤色（oの色） */
+    background-color: rgb(188, 28, 28); /* 赤色（oの色） */
     border-radius: 10%; /* 正方形にする */
     box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
 }
@@ -97,7 +97,7 @@
     position: absolute;
     width: 60%;
     height: 60%;
-    background-color: red; /* 赤色（oの色） */
+    background-color: rgb(188, 28, 28); /* 赤色（oの色） */
     border-radius: 10%; /* 正方形にする */
     box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
 }
@@ -106,7 +106,7 @@
     position: absolute;
     width: 95%;
     height: 95%;
-    background-color: red; /* 赤色（oの色） */
+    background-color: rgb(188, 28, 28); /* 赤色（oの色） */
     border-radius: 10%; /* 正方形にする */
     box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
 }

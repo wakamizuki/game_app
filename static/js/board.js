@@ -21,8 +21,16 @@ class Board {
         ];
     }
 
-    _canPlaceMark(row, col) {
-        return this.boardUpper[row][col].equals(Mark.Empty);
+    _canPlaceMark(row, col, mark) {
+        const currentMark = this.boardUpper[row][col];
+        console.log('markと現在の一番上にあるマーク:', mark, currentMark);
+        return mark.isBiggerThan(currentMark);
+    }
+
+    _shiftMarkDown(row, col, mark) {
+        this.boardLower[row][col] = this.boardCenter[row][col];
+        this.boardCenter[row][col] = this.boardUpper[row][col];
+        this.boardUpper[row][col] = mark;
     }
 
     // Mark インスタンスを受け取って、ボードの指定位置に配置
@@ -34,10 +42,12 @@ class Board {
             this.boardUpper[row][col].equals(Mark.Empty),
             this.boardUpper[row][col] == Mark.Empty
         );
-        if (!this._canPlaceMark(row, col)) {
-            throw new Error('そのセルはすでに埋まっています！');
+        if (!this._canPlaceMark(row, col, mark)) {
+            throw new Error(
+                'そのセルはすでに埋まっているか、選択したマークよりも大きいマークが配置されています！'
+            );
         }
-
+        this._shiftMarkDown(row, col, mark);
         this.boardUpper[row][col] = mark; // Mark インスタンスを配置
         console.log(`Mark placed at (${row}, ${col}): ${mark.name}`);
         return this;

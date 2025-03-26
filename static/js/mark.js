@@ -2,12 +2,22 @@ class Mark {
     constructor(name, player, size) {
         this.name = name; // マーク名 (例: 'X1', 'O2')
         this.player = player; // プレイヤー ('X' または 'O')
-        this.size = size; // サイズ ('SMALL', 'MIDDLE', 'LARGE')
+        this.size = size; // サイズ ('EMPTY', 'SMALL', 'MIDDLE', 'LARGE')
         this.available = true; // 利用可能かどうか
     }
 
     _canSelect() {
         return this.available;
+    }
+
+    isBiggerThan(other) {
+        const SIZE_SCORE = {
+            NOTHING: 0,
+            SMALL: 1,
+            MIDDLE: 2,
+            LARGE: 3,
+        };
+        return SIZE_SCORE[this.size] > SIZE_SCORE[other.size];
     }
 
     // マークを選択状態にする

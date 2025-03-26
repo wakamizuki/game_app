@@ -1,6 +1,12 @@
 .mark-selection {
     margin-top: 10px;
 }
+.mark-selection.x {
+    background-color: #71aef0;
+}
+.mark-selection.o {
+    background-color: #f07171;
+}
 
 .mark-row {
     display: flex;
