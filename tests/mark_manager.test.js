@@ -67,4 +67,21 @@ describe('MarkManager Class', () => {
             Error
         );
     });
+
+    test('selectMarkFromBoardを呼び出すと、選択されたマークが返される', () => {
+        const markManager = new MarkManager();
+        const currentPlayer = new Player('X');
+        markManager.selectMarkFromBoard('X1', currentPlayer);
+        let selectedMark = new Mark('X1', 'X', 'SMALL');
+        expect(markManager.getCurrentSelectedMark()).toEqual(selectedMark);
+    });
+
+    test('すでに何らかのマークを選択していた場合、selectMarkFromBoardを呼び出すとエラーが発生する', () => {
+        const markManager = new MarkManager();
+        const currentPlayer = new Player('X');
+        markManager.selectMark('X1', currentPlayer);
+        expect(() =>
+            markManager.selectMarkFromBoard('X2', currentPlayer)
+        ).toThrowError(Error);
+    });
 });

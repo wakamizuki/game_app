@@ -1,5 +1,6 @@
 import Board from '../static/js/board';
 import Mark from '../static/js/mark';
+import Player from '../static/js/player';
 
 describe('Board Class', () => {
     test('指定したセルにマークを配置できる', () => {
@@ -92,5 +93,33 @@ describe('Board Class', () => {
         board.placeMarkOnBoard(0, 0, mark);
         board.placeMarkOnBoard(0, 2, mark2);
         expect(board.checkWinner()).toBeNull();
+    });
+
+    test('Board[row][col]に自分のマークが配置されている場合、remove可能', () => {
+        const board = new Board();
+        const mark = new Mark('X1', 'X', 'SMALL');
+        board.placeMarkOnBoard(0, 0, mark);
+        const currentPlayer = new Player('X');
+        expect(() =>
+            board.removeMyMarkFromBoard(0, 0, currentPlayer)
+        ).not.toThrowError();
+    });
+
+    test('Board[row][col]が空の場合、removeできない', () => {
+        const board = new Board();
+        const currentPlayer = new Player('X');
+        expect(() =>
+            board.removeMyMarkFromBoard(0, 0, currentPlayer)
+        ).toThrowError();
+    });
+
+    test('Board[row][col]が相手のマークの場合、removeできない', () => {
+        const board = new Board();
+        const mark = new Mark('O1', 'O', 'SMALL');
+        board.placeMarkOnBoard(0, 0, mark);
+        const currentPlayer = new Player('X');
+        expect(() =>
+            board.removeMyMarkFromBoard(0, 0, currentPlayer)
+        ).toThrowError();
     });
 });

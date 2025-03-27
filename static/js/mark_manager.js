@@ -24,6 +24,8 @@ class MarkManager {
     }
 
     selectMark(name, currentPlayer) {
+        console.log('selectMark');
+        console.log('currentPlayer:', currentPlayer);
         const mark = this._getMarkByName(name);
 
         if (this._isMarkSelected()) {
@@ -40,6 +42,18 @@ class MarkManager {
         } catch (error) {
             throw new Error(error);
         }
+    }
+
+    selectMarkFromBoard(name, currentPlayer) {
+        const mark = this._getMarkByName(name);
+        if (this._isMarkSelected()) {
+            throw new Error('マークはすでに選択されています！');
+        }
+        if (mark.player !== currentPlayer.getMark()) {
+            throw new Error('自分のマークを選択してください！');
+        }
+        this._setCurrentSelectedMark(mark);
+        this._selectMark();
     }
 
     resetMark() {

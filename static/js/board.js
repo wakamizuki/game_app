@@ -27,12 +27,33 @@ class Board {
         return mark.isBiggerThan(currentMark);
     }
 
+    _canRemoveMark(row, col, currentPlayer) {
+        const currentMark = this.boardUpper[row][col];
+        return currentMark.player == currentPlayer.getMark();
+    }
+
     _shiftMarkDown(row, col, mark) {
         this.boardLower[row][col] = this.boardCenter[row][col];
         this.boardCenter[row][col] = this.boardUpper[row][col];
         this.boardUpper[row][col] = mark;
     }
+    _shitMarkUp(row, col) {
+        console.log('shitMarkUp');
+        this.boardUpper[row][col] = this.boardCenter[row][col];
+        this.boardCenter[row][col] = this.boardLower[row][col];
+        this.boardLower[row][col] = Mark.Empty;
+    }
 
+    removeMyMarkFromBoard(row, col, currentPlayer) {
+        console.log('currentPlayer:', currentPlayer);
+        if (!this._canRemoveMark(row, col, currentPlayer)) {
+            throw new Error('そのセルはあなたのマークではありません！');
+        }
+        const removedMark = this.boardUpper[row][col];
+        this._shitMarkUp(row, col);
+        console.log(`Mark removed from (${row}, ${col}): ${removedMark.name}`);
+        return removedMark;
+    }
     // Mark インスタンスを受け取って、ボードの指定位置に配置
     placeMarkOnBoard(row, col, mark) {
         // その場所が空いている場合にマークを配置

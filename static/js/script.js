@@ -13,8 +13,12 @@ document.getElementById('start-game-btn').addEventListener('click', () => {
 // マーク選択イベント
 document.querySelectorAll('.mark-cell').forEach((cell) => {
     cell.addEventListener('click', (e) => {
-        const markId = e.target.id.split('-')[1];
-        gameController.handleMarkSelection(markId, updateMarkSelectionUI);
+        const markName = e.target.id.split('-')[1];
+        gameController.handleMarkSelection(
+            markName,
+            updateMarkSelectionUI,
+            updateBoardUI
+        );
     });
 });
 
@@ -23,7 +27,13 @@ document.querySelectorAll('.board-cell').forEach((cell, index) => {
     cell.addEventListener('click', () => {
         const row = Math.floor(index / BOARD_SIZE);
         const col = index % BOARD_SIZE;
-        gameController.handleCellClick(row, col, updateBoardUI);
+        console.log(row, col);
+        gameController.handleCellClick(
+            row,
+            col,
+            updateMarkSelectionUI,
+            updateBoardUI
+        );
     });
 });
 
